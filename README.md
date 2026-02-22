@@ -38,7 +38,6 @@
 |:-:|:-:|
 | ![dark](screenshot/darkmode.png) | ![light](screenshot/lightmode.png) |
 
-*Replace these placeholders with actual screenshots of your deployment.*
 
 ---
 
