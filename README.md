@@ -36,7 +36,7 @@
 
 | Dark Mode | Light Mode |
 |:-:|:-:|
-| ![dark](https://via.placeholder.com/400x250/0c1117/22d3ee?text=Dark+Mode) | ![light](https://via.placeholder.com/400x250/f0f2f5/0891b2?text=Light+Mode) |
+| ![dark](screenshot/darkmode.png) | ![light](screenshot/lightmode.png) |
 
 *Replace these placeholders with actual screenshots of your deployment.*
 
