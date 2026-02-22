@@ -768,7 +768,11 @@ function drawTempGraph(temps,count){
 
 function renderDaily(data){
   const d=data.daily,grid=document.getElementById('forecast-grid');let html='';
-  for(let i=1;i<=3&&i<d.time.length;i++){
+  const tz=_location.tz||data.timezone||'UTC';
+  const nowLocal=new Date(new Date().toLocaleString('en-US',{timeZone:tz}));
+  const todayStr=nowLocal.getFullYear()+'-'+String(nowLocal.getMonth()+1).padStart(2,'0')+'-'+String(nowLocal.getDate()).padStart(2,'0');
+  const startIdx=d.time.indexOf(todayStr)+1||1;
+  for(let i=startIdx;i<startIdx+3&&i<d.time.length;i++){
     const dt=new Date(d.time[i]+'T00:00:00'),dn=dt.toLocaleDateString('en-US',{weekday:'short',timeZone:'UTC'}),ds=dt.toLocaleDateString('en-US',{month:'short',day:'numeric',timeZone:'UTC'});
     const wmo=getWMO(d.weather_code[i]),sr=d.sunrise[i]?d.sunrise[i].split('T')[1]:'',ss=d.sunset[i]?d.sunset[i].split('T')[1]:'';
     const dayTemp=(d.temperature_2m_max[i]+d.temperature_2m_min[i])/2,dayHumidity=d.relative_humidity_2m_mean?d.relative_humidity_2m_mean[i]:null;
