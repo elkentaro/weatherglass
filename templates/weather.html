@@ -672,7 +672,7 @@ function calcRunScore({temp,humidity,windKmh,precipMm,weatherCode}){
   let hp=0;if(temp>20&&humidity!=null&&humidity>cfg.humidThr){const tF=temp*9/5+32,combo=tF+humidity;if(combo>cfg.comboThr){hp=Math.min(15,(combo-cfg.comboThr)/40*15);tempBias=Math.min(1,tempBias+hp/30);}}
   score+=hp;factors.heat={penalty:hp,label:'Heat idx'};
   let wp=0;if(windKmh>cfg.windThr)wp=Math.min(20,((windKmh-cfg.windThr)/35)*20);score+=wp;factors.wind={penalty:wp,label:`Wind ${Math.round(windKmh)}km/h`};if(temp<mid&&wp>0)tempBias=Math.max(-1,tempBias-wp/40);
-  const rs=cfg.rainSens/5;const precipCap=20+cfg.rainSens*5;let pp=0;if(precipMm>0){if(precipMm<=1)pp=8*rs;else if(precipMm<=5)pp=18*rs;else if(precipMm<=15)pp=25*rs;else if(precipMm<=30)pp=32*rs;else pp=40*rs;pp=Math.min(precipCap,pp);}score+=pp;factors.precip={penalty:pp,label:`Precip ${precipMm}mm`};
+  const rs=cfg.rainSens/4;const precipCap=20+cfg.rainSens*5;let pp=0;if(precipMm>0){if(precipMm<=1)pp=8*rs;else if(precipMm<=5)pp=18*rs;else if(precipMm<=15)pp=25*rs;else if(precipMm<=30)pp=32*rs;else pp=40*rs;pp=Math.min(precipCap,pp);}score+=pp;factors.precip={penalty:pp,label:`Precip ${precipMm}mm`};
   const dc={45:5,48:7,51:1,53:3,55:5,56:10,57:10,61:2,63:5,65:8,66:10,67:10,71:3,73:6,75:10,77:5,80:2,81:5,82:8,85:6,86:10,95:10,96:10,99:10};const cp=dc[weatherCode]||0;score+=cp;factors.condition={penalty:cp,label:`WMO ${weatherCode}`};
   if([56,57,66,67,71,73,75,77,85,86].includes(weatherCode))tempBias=Math.max(-1,tempBias-0.3);
   score=Math.max(0,Math.min(100,Math.round(score)));if(tempBias===0&&score>0)tempBias=-0.05;
